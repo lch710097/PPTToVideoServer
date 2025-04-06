@@ -17,7 +17,12 @@
 
 <b>Try it online👉：[http://ppt.quickmap.net](http://ppt.quickmap.net)</b>
 
-explain video:<video src="public/jiangjie.mp4" width="550"> </video>
+<b>Explain video: </b>
+
+<video id="video" controls="" preload="none" poster="封面">
+      <source id="mp4" src="/public/jiangjie.mp4" type="video/mp4">
+</video>
+
 
 # ✨ Highlights
 1. <b>Easy Development</b>: Built with SpringBoot and MySQL.
@@ -39,10 +44,12 @@ maven install
 
 java -jar ppttovhvideo-0.0.1-SNAPSHOT.jar start server
 
-front end package under "static",if you want modify front end visit  [https://github.com/lch710097/PPTToVideo]
+front end package under "static",
  
 ```
 Browser access : http://127.0.0.1:8888 
+
+If you want modify front end visit  [https://github.com/lch710097/PPTToVideo]
 
 # 📚 Features
 ### Basic Features

@@ -8,7 +8,13 @@
 
 <b>Try it online👉：[http://ppt.quickmap.net](http://ppt.quickmap.net) 暂时不支持导出视频</b>
 
-演示视频：<video src="public/jiangjie.mp4" width="550"> </video>
+<b>演示视频： </b>
+
+
+<video id="video" controls="" preload="none" poster="封面">
+      <source id="mp4" src="/public/jiangjie.mp4" type="video/mp4">
+</video>
+
 
 # ✨ 项目特色
 1. 易开发：基于SpringBoot + Mysql 构建，功能扩展更方便。
@@ -27,11 +33,13 @@ maven install
 
 java -jar ppttovhvideo-0.0.1-SNAPSHOT.jar 启动服务
 
-前端已经打包在static下面，如果需要修改前端访问[https://github.com/lch710097/PPTToVideo]
+前端已经打包在static下面，
  
 ```
 浏览器访问：http://127.0.0.1:8888
- 
+
+如果需要修改前端访问[https://github.com/lch710097/PPTToVideo]
+
 # 📚 功能列表
 ### 基础功能
 - 上传PPT
