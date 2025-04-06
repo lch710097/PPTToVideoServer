@@ -8,7 +8,7 @@
 
 <b>Try it online👉：[http://ppt.quickmap.net](http://ppt.quickmap.net) 暂时不支持导出视频</b>
 
-演示视频：<video src="public/jiangjie.mp4" width="550">
+演示视频：<video src="public/jiangjie.mp4" width="550"> </video>
 
 # ✨ 项目特色
 1. 易开发：基于SpringBoot + Mysql 构建，功能扩展更方便。

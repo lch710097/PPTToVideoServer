@@ -17,7 +17,7 @@
 
 <b>Try it online👉：[http://ppt.quickmap.net](http://ppt.quickmap.net)</b>
 
-explain video:<video src="public/jiangjie.mp4" width="550">
+explain video:<video src="public/jiangjie.mp4" width="550"> </video>
 
 # ✨ Highlights
 1. <b>Easy Development</b>: Built with SpringBoot and MySQL.
@@ -42,13 +42,7 @@ java -jar ppttovhvideo-0.0.1-SNAPSHOT.jar start server
 front end package under "static",if you want modify front end visit  [https://github.com/lch710097/PPTToVideo]
  
 ```
-brower acess : http://127.0.0.1:8888
- 
- 
-
- 
-Browser access: http://127.0.0.1:5173/
-
+Browser access : http://127.0.0.1:8888 
 
 # 📚 Features
 ### Basic Features
