@@ -25,8 +25,8 @@
 mysql中创建数据库 ppttovideodb
 将sql/ppttovideodb.sql导入数据库
 修改src/main/resources/application.properties中的数据库参数 和服务端口
-AI 声音克隆的服务地址(整理完成后，将上传下载包到网盘)
-AI 数字人的服务地址(整理完成后，将上传下载包到网盘)
+AI 声音克隆的服务地址 ( 夸克: 链接：https://pan.quark.cn/s/fa26cc167e7b  提取码：PEv7 )  需要6G GPU运行
+AI 数字人的服务地址(( 夸克:链接：https://pan.quark.cn/s/82decf325fdc 提取码：rbd6)  需要 16G GPU 运行
 deepseek 的服务地址和密匙 模型
 
 maven install

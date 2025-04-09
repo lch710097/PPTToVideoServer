@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <title>PPT转数字人视频 - 用户注册</title>
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #f9fafb;
+            --text-color: #1f2937;
+            --light-gray: #e5e7eb;
+            --gray: #9ca3af;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            flex-direction: column;
+        }
+
+
+        .background-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary-color);
+            top: -100px;
+            left: -100px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--accent-color);
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background-color: var(--success-color);
+            top: 50%;
+            right: 10%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .logo p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .input-field {
+            position: relative;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-field input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-field i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .verification-code {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .verification-code input {
+            flex: 1;
+        }
+
+        .get-code-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .get-code-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .get-code-btn:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.9rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .success-message {
+            color: var(--success);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .countdown {
+            color: var(--gray);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.85rem;
+            padding: 1rem 0;
+        }
+
+        .footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .footer {
+                margin-top: 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    <script src="config.js"></script>
+</head>
+<body>
+
+
+<div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+</div>
+<div class="container">
+    <div class="card">
+        <div class="logo">
+            <i class="fas fa-robot"   ></i>
+            <h1>PPT转数字人视频</h1>
+            <p>上传一段录音,一个头像可以将PPT转为数字人讲解视频。</p>
+        </div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="nickname">用户昵称</label>
+                <div class="input-field">
+                    <input type="text" id="nickname" name="nickname" placeholder="请输入2-16位昵称" required>
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="error-message" id="nickname-error">昵称长度应在2-16个字符之间</div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">手机号码</label>
+                <div class="input-field">
+                    <input type="tel" id="phone" name="phone" placeholder="请输入11位手机号码" required>
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="error-message" id="phone-error">请输入有效的手机号码</div>
+            </div>
+
+            <div class="form-group" style="display: none;">
+                <label for="verificationCode">短信验证码</label>
+                <div class="verification-code">
+                    <div class="input-field" style="flex: 1;">
+                        <input type="text" id="verificationCode" name="verificationCode" placeholder="请输入6位验证码"  >
+                    </div>
+                    <button type="button" id="getCodeBtn" class="get-code-btn">获取验证码</button>
+                </div>
+                <div class="error-message" id="code-error">请输入6位验证码</div>
+                <div class="countdown" id="countdown"></div>
+                <div class="success-message" id="code-success">验证码已发送</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">密码</label>
+                <div class="input-field">
+                    <input type="password" id="password" name="password" placeholder="请输入8-20位密码" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                </div>
+                <div class="error-message" id="password-error">密码长度应在8-20位，且包含字母和数字</div>
+            </div>
+
+            <div class="form-group">
+                <label for="password2">确认密码</label>
+                <div class="input-field">
+                    <input type="password" id="password2" name="password2" placeholder="请输入8-20位密码" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword2"></i>
+                </div>
+                <div class="error-message" id="password-error2">两次密码不一致</div>
+            </div>
+
+            <div class="error-message" id="register-error"></div>
+
+            <button type="submit" class="submit-btn">立即注册</button>
+        </form>
+
+
+<!--        <div class="login-link">-->
+<!--            已有账号？<a href="#">立即登录</a>-->
+<!--        </div>-->
+    </div>
+</div>
+
+<div class="footer">
+    &copy; 2025 速图科技 <a href="http://www.quickmap.net/" target="_blank">www.quickmap.net</a> 版权所有
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 密码可见性切换
+        const togglePassword = document.getElementById('togglePassword');
+        const password = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // 获取验证码按钮
+        const getCodeBtn = document.getElementById('getCodeBtn');
+        const phoneInput = document.getElementById('phone');
+        const countdownEl = document.getElementById('countdown');
+        const codeSuccess = document.getElementById('code-success');
+
+        getCodeBtn.addEventListener('click', function() {
+            const phone = phoneInput.value.trim();
+            const phoneError = document.getElementById('phone-error');
+
+            // 验证手机号格式
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                phoneError.style.display = 'block';
+                return;
+            }
+
+            phoneError.style.display = 'none';
+
+            // 禁用按钮并开始倒计时
+            getCodeBtn.disabled = true;
+            let countdown = 60;
+
+            countdownEl.style.display = 'block';
+            codeSuccess.style.display = 'block';
+
+            const timer = setInterval(() => {
+                countdownEl.textContent = `${countdown}秒后可重新获取`;
+                countdown--;
+
+                if (countdown < 0) {
+                    clearInterval(timer);
+                    getCodeBtn.disabled = false;
+                    countdownEl.style.display = 'none';
+                    codeSuccess.style.display = 'none';
+                }
+            }, 1000);
+
+            // 模拟发送验证码
+            console.log(`验证码已发送至手机号: ${phone}`);
+            // 实际应用中这里应该调用API发送验证码
+        });
+
+        // 表单验证
+        const form = document.getElementById('registerForm');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            console.log("sumbit")
+
+            // 获取表单值
+            const nickname = document.getElementById('nickname').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const code = document.getElementById('verificationCode').value.trim();
+            const password = document.getElementById('password').value;
+            const password2 = document.getElementById('password2').value;
+
+            // 验证各个字段
+            const nicknameError = document.getElementById('nickname-error');
+            const phoneError = document.getElementById('phone-error');
+            const codeError = document.getElementById('code-error');
+            const passwordError = document.getElementById('password-error');
+            const passwordError2 = document.getElementById('password-error2');
+
+            let isValid = true;
+
+            // 验证昵称
+            if (nickname.length < 2 || nickname.length > 16) {
+                nicknameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nicknameError.style.display = 'none';
+            }
+
+            // 验证手机号
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                phoneError.style.display = 'block';
+                isValid = false;
+            } else {
+                phoneError.style.display = 'none';
+            }
+
+            // 验证验证码
+            // if (!/^\d{6}$/.test(code)) {
+            //     codeError.style.display = 'block';
+            //     isValid = false;
+            // } else {
+            //     codeError.style.display = 'none';
+            // }
+
+
+            // 验证密码
+            if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(password)) {
+
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+
+            if ( password!=password2) {
+
+                passwordError2.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError2.style.display = 'none';
+            }
+
+
+
+            // 如果验证通过，提交表单
+            if (isValid) {
+                // 模拟表单提交
+
+                const xhr = new XMLHttpRequest();
+
+                const params = new URLSearchParams({
+                    username:nickname,
+                    password: password,
+                    phone: phone
+                });
+
+
+                // 配置请求
+                xhr.open('GET', registerurl+'?'+params, true);
+
+                 // 设置回调函数
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {  // 请求完成
+                        if (xhr.status === 200) {  // 成功响应
+                            const data = JSON.parse(xhr.responseText);
+                            if(data.msg){
+                                document.getElementById("register-error").style.display = 'block';
+                                document.getElementById("register-error").innerHTML=data.msg;
+
+                            }else{
+                                document.getElementById("register-error").style.display = 'block';
+                                document.getElementById("register-error").innerHTML="注册成功页面3秒后跳转到首页";
+                                setTimeout(function (){
+
+                                    window.location.href="login.html";
+                                },3000);
+
+                            }
+
+                        } else {
+                            document.getElementById("register-error").style.display = 'block';
+                            document.getElementById("register-error").innerHTML='请求失败:'+ xhr.status+ xhr.statusText;
+                            console.error('请求失败:', xhr.status, xhr.statusText);
+                        }
+                    }
+                };
+
+                // 发送请求
+                xhr.send();
+            }
+        });
+
+        // 实时验证输入
+        document.getElementById('nickname').addEventListener('input', function() {
+            if (this.value.trim().length >= 2 && this.value.trim().length <= 16) {
+                document.getElementById('nickname-error').style.display = 'none';
+            }
+        });
+
+        document.getElementById('phone').addEventListener('input', function() {
+            if (/^1[3-9]\d{9}$/.test(this.value.trim())) {
+                document.getElementById('phone-error').style.display = 'none';
+            }
+        });
+
+        document.getElementById('verificationCode').addEventListener('input', function() {
+            if (/^\d{6}$/.test(this.value.trim())) {
+                document.getElementById('code-error').style.display = 'none';
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(this.value)) {
+                document.getElementById('password-error').style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+</html>

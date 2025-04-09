@@ -36,8 +36,8 @@ maven install
 mysql create db "ppttovideodb"
 import sql/ppttovideodb.sql
 change "src/main/resources/application.properties" db params and port
-set AI clone server (will public download url later )
-set AI   Digital Human Server (will public download url later )
+set AI  voice clone server ( quark: 链接：https://pan.quark.cn/s/fa26cc167e7b  提取码：PEv7 )  need 6G GPU to run 
+set AI   Digital Human Server ( quark:链接：https://pan.quark.cn/s/82decf325fdc 提取码：rbd6)  need 16G GPU to run
 deepseek serverurl  、key 、model
 
 maven install

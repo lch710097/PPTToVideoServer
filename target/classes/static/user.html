@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息管理</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e1e5eb;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+
+        .sidebar {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar h3 i {
+            margin-right: 10px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 10px;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: var(--dark-color);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-menu a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .content-header h2 {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .content-header h2 i {
+            margin-right: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .user-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .avatar-upload:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .avatar-upload input {
+            display: none;
+        }
+
+        .user-details {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            transform: translateY(-50px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--danger-color);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-success {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .alert-danger {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        .alert i {
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        .space-list {
+            margin-top: 20px;
+        }
+
+        .space-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #e1e5eb;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+
+        .space-item:hover {
+            box-shadow: var(--box-shadow);
+            transform: translateY(-2px);
+        }
+
+        .space-info {
+            flex: 1;
+        }
+
+        .space-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .space-details {
+            font-size: 0.9em;
+            color: #666;
+            display: flex;
+            gap: 15px;
+        }
+
+        .space-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .space-btn {
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9em;
+        }
+
+        .space-btn.edit {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .space-btn.delete {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .space-btn.edit:hover {
+            background-color: #e68a00;
+        }
+
+        .space-btn.delete:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+    <script src="public/config.js"></script>
+    <script src="public/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-users-cog"></i>
+                <span>用户管理系统</span>
+            </div>
+            <div class="user-info">
+
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <aside class="sidebar">
+                <h3><i class="fas fa-bars"></i>菜单</h3>
+                <ul class="nav-menu">
+                    <li><a href="#" class="menu active" target-data="user"><i class="fas fa-tachometer-alt"></i> 用户信息</a></li>
+                    <li><a href="#" class="menu"  target-data="spaces"><i class="fas fa-user-friends"></i> 空间管理</a></li>
+                    <li><a href="#" class="menu" target-data="user"><i class="fas fa-cog"></i> 系统设置</a></li>
+                    <li><a href="#" class="menu" target-data="user"><i class="fas fa-chart-bar"></i> 统计分析</a></li>
+                    <li><a href="#" class="menu" target-data="user"><i class="fas fa-sign-out-alt"></i> 退出登录</a></li>
+                </ul>
+            </aside>
+
+            <main class="main-content user"  >
+                <div class="content-header">
+                    <h2><i class="fas fa-user-edit"></i> 用户信息管理</h2>
+                    <button class="btn" id="refresh-btn">
+                        <i class="fas fa-sync-alt"></i> 刷新数据
+                    </button>
+                </div>
+
+                <div id="alert-message" style="display: none;"></div>
+
+                <div class="user-profile">
+                    <div class="avatar-container">
+                        <img src="" alt="用户头像" class="avatar" id="user-avatar">
+                        <label class="avatar-upload" for="avatar-input">
+                            <i class="fas fa-camera"></i>
+                            <input type="file" id="avatar-input" accept="image/*">
+                        </label>
+                    </div>
+
+                    <div class="user-details">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="username">用户名</label>
+                                <input type="text" id="username" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">注册日期</label>
+                                <input type="email" id="email" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">手机号码</label>
+                                <input type="tel" id="phone" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-date">更新日期</label>
+                                <input type="text" id="register-date" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">地址</label>
+                            <input type="text" id="address" class="form-control" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-outline" id="edit-btn">
+                        <i class="fas fa-edit"></i> 编辑信息
+                    </button>
+                    <button class="btn" id="change-password-btn">
+                        <i class="fas fa-key"></i> 修改密码
+                    </button>
+                </div>
+            </main>
+
+
+            <main class="main-content spaces"   style="display: none;">
+                <div class="content-header">
+                    <h2><i class="fas fa-boxes"></i> 空间管理</h2>
+                    <div>
+                        <button class="btn" id="refresh-btn2">
+                            <i class="fas fa-sync-alt"></i> 刷新
+                        </button>
+
+                    </div>
+                </div>
+
+                <div id="alert-message3" style="display: none;"></div>
+
+                <div class="space-list" id="space-list">
+                    <!-- 空间列表将在这里动态加载 -->
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>点击"空间管理"加载空间列表或添加新空间</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 修改密码模态框 -->
+    <div class="modal" id="password-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> 修改密码</h3>
+                <button class="close-modal" id="close-password-modal">&times;</button>
+            </div>
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="current-password">当前密码</label>
+                    <input type="password" id="current-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">新密码</label>
+                    <input type="password" id="new-password" class="form-control" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">确认新密码</label>
+                    <input type="password" id="confirm-password" class="form-control" required minlength="6">
+                </div>
+
+                <div id="alert-message2" style="display: none;"></div>
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-outline" id="cancel-password">取消</button>
+                    <button type="submit" class="btn">确认修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> 确认删除</h3>
+                <button class="close-modal" id="close-confirm-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>您确定要删除这个空间吗？此操作无法撤消。</p>
+                <div id="alert-message4" style="display: none;"></div>
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-outline" id="cancel-delete">取消</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete">删除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 编辑信息模态框 -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-edit"></i> 编辑用户信息</h3>
+                <button class="close-modal" id="close-edit-modal">&times;</button>
+            </div>
+            <form id="edit-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-username">用户名</label>
+                        <input type="text" id="edit-username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email">电子邮箱</label>
+                        <input type="email" id="edit-email" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-phone">手机号码</label>
+                        <input type="tel" id="edit-phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-address">地址</label>
+                        <input type="text" id="edit-address" class="form-control">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-outline" id="cancel-edit">取消</button>
+                    <button type="submit" class="btn">保存更改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+            $(".menu").click(function (){
+                $(".menu").removeClass("active");
+                $(this).addClass("active");
+
+                $(".main-content").hide("");
+                $("."+$(this).attr("target-data")).show();
+            })
+            const confirmModal = document.getElementById('confirm-modal');
+            const closeConfirmModal = document.getElementById('close-confirm-modal');
+            const cancelDelete = document.getElementById('cancel-delete');
+            const confirmDelete = document.getElementById('confirm-delete');
+
+
+            let currentSpaceId=null;
+            [closeConfirmModal, cancelDelete].forEach(btn => {
+                btn.addEventListener('click', () => hideModal(confirmModal));
+            });
+
+
+            confirmDelete.addEventListener('click', async () => {
+                try {
+                    // 这里应该是实际的API调用
+                  const data=  await new Promise(resolve => {
+                        const xhr = new XMLHttpRequest();
+                        // 配置请求
+                        xhr.open('GET', 'api/deletehtmlspace?id='+currentSpaceId, true);
+                        // 设置回调函数
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) {  // 请求完成
+                                if (xhr.status === 200) {  // 成功响应
+                                    const data = JSON.parse(xhr.responseText);
+                                    resolve(data)
+                                } else {
+                                    resolve({msg:"请求出错"})
+                                }
+                            }
+                        };
+
+                        // 发送请求
+                        xhr.send();
+
+                    });
+
+                  if(data.msg){
+                      showAlert(`空间删除失败: ${data.msg}`, 'danger');
+                  }else {
+                      hideModal(confirmModal);
+                      fetchSpaces(); // 刷新列表
+                      showAlert('空间删除成功', 'success');
+                  }
+                } catch (error) {
+                    showAlert(`空间删除失败: ${error.message}`, 'danger');
+                }
+            });
+
+
+            function hideModal(modal) {
+                modal.classList.remove('active');
+            }
+            const spaceList = document.getElementById('space-list');
+            async function fetchSpaces() {
+                try {
+                    spaceList.innerHTML = `
+                        <div class="loading">
+                            <i class="fas fa-spinner"></i> 正在加载空间列表...
+                        </div>
+                    `;
+
+                    // 这里应该是实际的API调用，我们使用模拟数据
+                    const spaces = await new Promise(resolve => {
+
+
+                        const xhr = new XMLHttpRequest();
+                        // 配置请求
+                        xhr.open('GET', 'api/htmlspace', true);
+
+                        // 设置回调函数
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) {  // 请求完成
+                                if (xhr.status === 200) {  // 成功响应
+                                    const data = JSON.parse(xhr.responseText);
+
+                                    resolve(data)
+                                } else {
+
+                                }
+                            }
+                        };
+
+                        // 发送请求
+                        xhr.send();
+
+                    });
+
+                    if (spaces.length === 0) {
+                        spaceList.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-box-open"></i>
+                                <p>暂无空间数据</p>
+
+                            </div>
+                        `;
+
+                        return;
+                    }
+
+                    renderSpaceList(spaces);
+                    showAlert('空间列表加载成功', 'success');
+                } catch (error) {
+                    spaceList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>加载空间列表失败: ${error.message}</p>
+                            <button class="btn" id="retry-loading">
+                                <i class="fas fa-redo"></i> 重试
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById('retry-loading').addEventListener('click', fetchSpaces);
+                    showAlert(`加载空间列表失败: ${error.message}`, 'danger');
+                }
+            }
+
+            // 渲染空间列表
+            function renderSpaceList(spaces) {
+                spaceList.innerHTML = '';
+
+                spaces.forEach(space => {
+                    const spaceItem = document.createElement('div');
+                    spaceItem.className = 'space-item';
+
+                    spaceItem.innerHTML = `
+                        <div class="space-info">
+                            <div class="space-name">${space.name}</div>
+                            <div class="space-details">
+                                <span><i class="fas fa-database"></i> 添加日期：${space.adddate}</span>
+                                <span><i class="fas fa-calendar-alt"></i>更新日期: ${space.updatedate}</span>
+                            </div>
+                            <p class="space-description"><a href='${window.serverurl}${space.url}' target="_blank">${space.url}</a></p>
+                        </div>
+                        <div class="space-actions">
+
+                            <button class="space-btn delete" data-id="${space.id}">
+                                <i class="fas fa-trash"></i> 删除
+                            </button>
+                        </div>
+                    `;
+
+                    spaceList.appendChild(spaceItem);
+                });
+
+                // 获取状态颜色
+                function getStatusColor(status) {
+                    switch(status) {
+                        case 'active': return '#4caf50';
+                        case 'inactive': return '#f44336';
+                        case 'maintenance': return '#ff9800';
+                        default: return '#9e9e9e';
+                    }
+                }
+
+                // 获取状态文本
+                function getStatusText(status) {
+                    switch(status) {
+                        case 'active': return '激活';
+                        case 'inactive': return '禁用';
+                        case 'maintenance': return '维护中';
+                        default: return '未知';
+                    }
+                }
+
+
+
+
+
+
+                document.querySelectorAll('.space-btn.delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const spaceId = e.currentTarget.getAttribute('data-id');
+                        openDeleteConfirmModal(spaceId);
+                    });
+                });
+            }
+
+
+            function openDeleteConfirmModal(spaceId) {
+                currentSpaceId = spaceId;
+                showModal(confirmModal);
+            }
+
+            function showModal(modal) {
+                modal.classList.add('active');
+            }
+            fetchSpaces()
+            // 模拟从服务器获取用户数据
+            function fetchUserData() {
+                // 这里应该是实际的API调用，我们使用模拟数据
+                return new Promise(resolve => {
+
+                    const xhr = new XMLHttpRequest();
+                    // 配置请求
+                    xhr.open('GET', 'api/@me', true);
+
+                    // 设置回调函数
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {  // 请求完成
+                            if (xhr.status === 200) {  // 成功响应
+                                const data = JSON.parse(xhr.responseText);
+
+                                resolve(data)
+                            } else {
+
+                            }
+                        }
+                    };
+
+                    // 发送请求
+                    xhr.send();
+
+                });
+            }
+
+            let userid=-1;
+            // 加载用户数据
+            async function loadUserData() {
+                try {
+                    const user = await fetchUserData();
+                    
+                    document.getElementById('username').value = user.name||"";
+
+                    userid=user.id;
+                    document.getElementById('email').value = user.adddate||"";
+                    document.getElementById('phone').value = user.phone||"";
+                    document.getElementById('register-date').value = user.updatedate||"";
+                    document.getElementById('address').value = user.address||"";
+                    document.getElementById('user-avatar').src =window.serverurl+ (user.avatar||"icons/default.png");
+                    
+                    // 设置编辑表单的值
+                    document.getElementById('edit-username').value = user.username||"";
+                    document.getElementById('edit-email').value = user.email||"";
+                    document.getElementById('edit-phone').value = user.phone||"";
+                    document.getElementById('edit-address').value = user.address||"";
+                    
+                    showAlert('用户数据加载成功!', 'success');
+                } catch (error) {
+                    showAlert('加载用户数据失败: ' + error.message, 'danger');
+                }
+            }
+
+            // 显示提示信息
+            function showAlert(message, type) {
+                const alertDiv = document.getElementById('alert-message');
+                alertDiv.style.display = 'block';
+                alertDiv.className = 'alert alert-' + type;
+                
+                if (type === 'success') {
+                    alertDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                } else {
+                    alertDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                }
+                
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
+            }
+
+            function showAlert2(message, type) {
+                const alertDiv = document.getElementById('alert-message2');
+                alertDiv.style.display = 'block';
+                alertDiv.className = 'alert alert-' + type;
+
+                if (type === 'success') {
+                    alertDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                } else {
+                    alertDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                }
+
+                setTimeout(() => {
+                    alertDiv.style.display = 'none';
+                }, 5000);
+            }
+
+            // 修改密码模态框
+            const passwordModal = document.getElementById('password-modal');
+            const changePasswordBtn = document.getElementById('change-password-btn');
+            const closePasswordModal = document.getElementById('close-password-modal');
+            const cancelPassword = document.getElementById('cancel-password');
+            const passwordForm = document.getElementById('password-form');
+
+            changePasswordBtn.addEventListener('click', () => {
+
+                if(!userid||userid<0){
+                    showAlert('没有获取到用户信息,请先登录在修改密码!', 'danger');
+                    return;
+                }
+                passwordModal.classList.add('active');
+            });
+
+            [closePasswordModal, cancelPassword].forEach(btn => {
+                btn.addEventListener('click', () => {
+                    passwordModal.classList.remove('active');
+                });
+            });
+
+            passwordForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+
+                if(userid<0){
+                    showAlert('没有获取到用户信息,请先登录在修改密码!', 'danger');
+                    return;
+                }
+
+                if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(newPassword)) {
+                    showAlert('密码长度应在8-20位，且包含字母和数字!', 'danger');
+                    return;
+                }
+                if (newPassword !== confirmPassword) {
+                    showAlert2('两次输入的新密码不匹配!', 'danger');
+                    return;
+                }
+
+
+                
+                // 这里应该是实际的API调用，我们使用模拟操作
+                try {
+                    // 模拟API调用
+                   const result= await new Promise(resolve => {
+                        const xhr = new XMLHttpRequest();
+
+                        const params = new URLSearchParams({
+                            currentPassword:currentPassword,
+                            newPassword: newPassword
+
+                        });
+                        // 配置请求
+                        xhr.open('GET', 'api/updateuser?'+params, true);
+
+                        // 设置回调函数
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) {  // 请求完成
+                                if (xhr.status === 200) {  // 成功响应
+                                    const data = JSON.parse(xhr.responseText);
+
+                                    resolve(data)
+                                } else {
+
+                                }
+                            }
+                        };
+
+                        // 发送请求
+                        xhr.send();
+                    });
+
+                   if(result.ok) {
+                       // 清空表单
+                       passwordForm.reset();
+                       passwordModal.classList.remove('active');
+
+                       showAlert2('密码修改成功!', 'success');
+                   }else{
+                       showAlert('密码修改不成功!'+result.msg, 'danger');
+                   }
+                } catch (error) {
+                    showAlert2('密码修改失败: ' + error.message, 'danger');
+                }
+            });
+
+            // 编辑信息模态框
+            const editModal = document.getElementById('edit-modal');
+            const editBtn = document.getElementById('edit-btn');
+            const closeEditModal = document.getElementById('close-edit-modal');
+            const cancelEdit = document.getElementById('cancel-edit');
+            const editForm = document.getElementById('edit-form');
+
+            editBtn.addEventListener('click', () => {
+                editModal.classList.add('active');
+            });
+
+            [closeEditModal, cancelEdit].forEach(btn => {
+                btn.addEventListener('click', () => {
+                    editModal.classList.remove('active');
+                });
+            });
+
+            editForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('edit-username').value;
+                const email = document.getElementById('edit-email').value;
+                const phone = document.getElementById('edit-phone').value;
+                const address = document.getElementById('edit-address').value;
+                
+                // 这里应该是实际的API调用，我们使用模拟操作
+                try {
+                    // 模拟API调用
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // 更新显示的数据
+                    document.getElementById('username').value = username;
+                    document.getElementById('email').value = email;
+                    document.getElementById('phone').value = phone;
+                    document.getElementById('address').value = address;
+                    
+                    editModal.classList.remove('active');
+                    showAlert('用户信息更新成功!', 'success');
+                } catch (error) {
+                    showAlert('更新用户信息失败: ' + error.message, 'danger');
+                }
+            });
+
+            // 头像上传功能
+            const avatarInput = document.getElementById('avatar-input');
+            const userAvatar = document.getElementById('user-avatar');
+
+            avatarInput.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        userAvatar.src = event.target.result;
+                        
+                        // 这里应该是实际上传头像到服务器的代码
+                        // 模拟上传
+                        setTimeout(() => {
+                            showAlert('头像上传成功!', 'success');
+                        }, 1000);
+                    };
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
+            // 刷新按钮
+            document.getElementById('refresh-btn').addEventListener('click', loadUserData);
+            document.getElementById('refresh-btn2').addEventListener('click', fetchSpaces);
+
+            // 初始加载数据
+            loadUserData();
+        });
+    </script>
+</body>
+</html>
