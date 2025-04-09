@@ -1,18 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PPT转数字人视频</title>
-    <script type="module" crossorigin src="/assets/index-a310ded6.js"></script>
-    <link rel="stylesheet" href="/assets/index-2b35f022.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="PPT转数字人视频 - 一键将PPT转换为专业数字人讲解视频" />
+    <meta name="keywords" content="PPT,数字人,视频转换,AI视频" />
+    <meta name="theme-color" content="#4a90e2" />
+    <title>PPT转数字人视频 - 智能演示解决方案</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+
+       
+        -moz-osx-font-smoothing: grayscale;
+    
+        color: #2c3e50;
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+      }
+      
+      #app {
+        height: 100%;
+        width: 100%;
+      }
+      
+      .app-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #1a1f36, #2d3a5d);
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .app-loading.fade-out {
+        opacity: 0;
+      }
+      
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 20px;
+        animation: pulse 1.5s infinite;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        border-top-color: #4a90e2;
+        animation: spin 1s linear infinite;
+      }
+      
+      .loading-text {
+        margin-top: 20px;
+        color: #ffffff;
+        font-size: 16px;
+        letter-spacing: 1px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      @keyframes pulse {
+        0% { transform: scale(0.95); opacity: 0.7; }
+        50% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(0.95); opacity: 0.7; }
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-8ccc7435.js"></script>
+    <link rel="stylesheet" href="/assets/index-ec1fcc8c.css">
   </head>
   <body>
-   <script type="text/javascript" src="/config.js" >
-
-   </script>
+    <div class="app-loading" id="appLoading">
+      <div class="loading-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" fill="#4a90e2">
+          <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 10H6v-2h8v2zm4-4H6v-2h12v2z"/>
+        </svg>
+      </div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text">正在加载应用...</div>
+    </div>
+    
+    <script type="text/javascript" src="/config.js"></script>
     <div id="app"></div>
     
+    
+    <script>
+      // 页面加载完成后移除加载动画
+      window.addEventListener('load', function() {
+        const loadingElement = document.getElementById('appLoading');
+        if (loadingElement) {
+          loadingElement.classList.add('fade-out');
+          setTimeout(function() {
+            loadingElement.style.display = 'none';
+          }, 500);
+        }
+      });
+    </script>
   </body>
 </html>
